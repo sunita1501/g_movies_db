@@ -18,7 +18,7 @@ public class GMovieDBTest {
         GMovieDB gMovieDB = new GMovieDB();
 
         gMovieDB.addMovie(new Movie("Awesome","Joe"));
-        assertEquals("movie1",gMovieDB.getMovies().get(0));
+        assertEquals("Awesome",gMovieDB.getMovies().get(0).title);
     }
 
     @Test
