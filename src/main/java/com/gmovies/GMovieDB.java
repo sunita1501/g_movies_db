@@ -24,4 +24,18 @@ public class GMovieDB {
 
          movieList.add(movieName);
     }
+
+    @GetMapping("movie/{name}")
+    public Movie getMovies(@PathVariable String name) {
+
+        for (Movie m:movieList )
+        {
+            if (name.equals(m.title)){
+                return m;
+            }
+
+        }
+
+        return null;
+    }
 }
