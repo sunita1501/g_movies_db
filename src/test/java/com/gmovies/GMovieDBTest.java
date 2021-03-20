@@ -22,4 +22,13 @@ public class GMovieDBTest {
         assertEquals(gMovieDB.getMovies(), "movie");
     }
 
+    @Test
+    public void gMovieDBretrunAllTest() {
+        GMovieDB gMovieDB = new GMovieDB();
+        gMovieDB.movie = "movie";
+
+        assertEquals(3,gMovieDB.getMovies().size());
+    }
+
+
 }
