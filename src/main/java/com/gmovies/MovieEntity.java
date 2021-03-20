@@ -22,6 +22,13 @@ public class MovieEntity {
 
     String title;
     String director;
+    int rating;
+
+    public MovieEntity(String title, String director, int rating) {
+        this.title = title;
+        this.director = director;
+        this.rating=rating;
+    }
 
     public MovieEntity(String title, String director) {
         this.title = title;
