@@ -8,10 +8,10 @@ import java.util.List;
 @RestController
 public class GMovieDB {
 
-    List<String> movieList = new ArrayList<String>();
+    List<Movie> movieList = new ArrayList<Movie>();
 
 @GetMapping("movies")
-    public List<String> getMovies() {
+    public List<Movie> getMovies() {
 
 
         return movieList;
@@ -19,7 +19,7 @@ public class GMovieDB {
 
     @PostMapping("movie")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addMovie(@RequestBody String movieName) {
+    public void addMovie(@RequestBody Movie movieName) {
 
 
          movieList.add(movieName);

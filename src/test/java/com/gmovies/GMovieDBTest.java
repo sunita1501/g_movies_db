@@ -16,17 +16,17 @@ public class GMovieDBTest {
     @Test
     public void gMovieDBReturnsMovieTest() {
         GMovieDB gMovieDB = new GMovieDB();
-       
-        gMovieDB.addMovie("movie1");
+
+        gMovieDB.addMovie(new Movie("Awesome","Joe"));
         assertEquals("movie1",gMovieDB.getMovies().get(0));
     }
 
     @Test
     public void gMovieDBretrunAllTest() {
         GMovieDB gMovieDB = new GMovieDB();
-        gMovieDB.addMovie("movie1");
-        gMovieDB.addMovie("movie2");
-        gMovieDB.addMovie("movie3");
+        gMovieDB.addMovie(new Movie("Awesome","Joe"));
+        gMovieDB.addMovie(new Movie("Awesome","Joe"));
+        gMovieDB.addMovie(new Movie("Awesome","Joe"));
 
         assertEquals(3,gMovieDB.getMovies().size());
     }
