@@ -6,29 +6,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
-public class GMovieDB {
+public class GMovieDBController {
 
-    List<Movie> movieList = new ArrayList<Movie>();
+    List<MovieDTO> movieDTOList = new ArrayList<MovieDTO>();
 
 @GetMapping("movies")
-    public List<Movie> getMovies() {
+    public List<MovieDTO> getMovies() {
 
 
-        return movieList;
+        return movieDTOList;
     }
 
     @PostMapping("movie")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addMovie(@RequestBody Movie movieName) {
+    public void addMovie(@RequestBody MovieDTO movieDTOName) {
 
 
-         movieList.add(movieName);
+         movieDTOList.add(movieDTOName);
     }
 
     @GetMapping("movie/{name}")
-    public Movie getMovies(@PathVariable String name) {
+    public MovieDTO getMovies(@PathVariable String name) {
 
-        for (Movie m:movieList )
+        for (MovieDTO m: movieDTOList)
         {
             if (name.equals(m.title)){
                 return m;

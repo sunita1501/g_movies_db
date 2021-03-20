@@ -2,7 +2,6 @@ package com.gmovies;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,23 +26,23 @@ public class GmovieDBIT {
     }
     @Test
     public void addMoviesTest()throws Exception{
-        Movie movie1=new Movie("Awesome","Joe");
-        Movie movie2=new Movie("Awesome2","Joe2");
-        Movie movie3=new Movie("Awesome3","Joe3");
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movie1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movie2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movie3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe");
+        MovieDTO movieDTO2 =new MovieDTO("Awesome2","Joe2");
+        MovieDTO movieDTO3 =new MovieDTO("Awesome3","Joe3");
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
         mockMvc.perform(get("/movies").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
                 andExpect(jsonPath("[0].title").value("Awesome")).andExpect(jsonPath("length()").value(3));
     }
     @Test
     public void getSpecificMovieTest()throws Exception{
-        Movie movie1=new Movie("Awesome","Joe");
-        Movie movie2=new Movie("Awesome2","Joe2");
-        Movie movie3=new Movie("Awesome3","Joe3");
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movie1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movie2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movie3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe");
+        MovieDTO movieDTO2 =new MovieDTO("Awesome2","Joe2");
+        MovieDTO movieDTO3 =new MovieDTO("Awesome3","Joe3");
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
         mockMvc.perform(get("/movie/Awesome2").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
                 andExpect(jsonPath("$.title").value("Awesome2"));
     }

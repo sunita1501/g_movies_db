@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class Movie {
+public class MovieDTO {
     String title;
     String director;
 
