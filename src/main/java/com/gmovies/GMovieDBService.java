@@ -17,19 +17,19 @@ public class GMovieDBService {
     }
 
     public void saveMovie(MovieDTO movieDTO) {
-        gMovieDBRepository.save(new MovieEntity(movieDTO.title, movieDTO.director,movieDTO.rating));
+        gMovieDBRepository.save(new MovieEntity(movieDTO.title, movieDTO.director,movieDTO.rating,movieDTO.actors,movieDTO.release_year,movieDTO.description));
     }
 
     public List<MovieDTO> fetchAll() {
         return gMovieDBRepository.findAll().stream().map(movieEntity ->
-                new MovieDTO(movieEntity.title, movieEntity.director,movieEntity.rating)
+                new MovieDTO(movieEntity.title, movieEntity.director,movieEntity.rating,movieEntity.actors,movieEntity.release_year, movieEntity.description)
         ).collect(Collectors.toList());
 
     }
 
     public MovieDTO findByMovieTitle(String movieTitle) {
         MovieEntity movieEntity = gMovieDBRepository.findByTitle(movieTitle);
-        return new MovieDTO(movieEntity.title, movieEntity.director,movieEntity.rating);
+        return new MovieDTO(movieEntity.title, movieEntity.director,movieEntity.rating,movieEntity.actors, movieEntity.release_year,movieEntity.description);
 
     }
 }
