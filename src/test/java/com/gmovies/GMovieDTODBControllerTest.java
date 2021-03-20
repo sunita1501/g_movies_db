@@ -1,32 +1,48 @@
 package com.gmovies;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class GMovieDTODBControllerTest {
+
+    @InjectMocks
+    GMovieDBController gMovieDBController;
+
+    @Mock
+    GMovieDBService service;
+
 
     @Test
     public void gMovieDBIsEmptyTest() {
-        GMovieDBController gMovieDBController = new GMovieDBController();
-
         assertTrue(gMovieDBController.getMovies().isEmpty());
     }
 
     @Test
     public void gMovieDBReturnsMovieTest() {
-        GMovieDBController gMovieDBController = new GMovieDBController();
+        MovieDTO movieDTO = new MovieDTO("Awesome", "Joe");
+        when(service.findByMovieTitle("Awesome")).thenReturn(movieDTO);
 
-        gMovieDBController.addMovie(new MovieDTO("Awesome","Joe"));
-        assertEquals("Awesome", gMovieDBController.getMovies().get(0).title);
+        assertEquals(movieDTO, gMovieDBController.getMovieByTitle("Awesome"));
     }
 
     @Test
     public void gMovieDBretrunAllTest() {
-        GMovieDBController gMovieDBController = new GMovieDBController();
-        gMovieDBController.addMovie(new MovieDTO("Awesome","Joe"));
-        gMovieDBController.addMovie(new MovieDTO("Awesome","Joe"));
-        gMovieDBController.addMovie(new MovieDTO("Awesome","Joe"));
+        List<MovieDTO> movieDTOList = new ArrayList<>();
+        movieDTOList.add(new MovieDTO("Awesome1", "Joe1"));
+        movieDTOList.add(new MovieDTO("Awesome2", "Joe2"));
+        movieDTOList.add(new MovieDTO("Awesome3", "Joe3"));
+
+        when(service.fetchAll()).thenReturn(movieDTOList);
 
         assertEquals(3, gMovieDBController.getMovies().size());
     }
