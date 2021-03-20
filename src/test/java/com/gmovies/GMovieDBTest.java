@@ -2,8 +2,7 @@ package com.gmovies;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GMovieDBTest {
 
@@ -11,21 +10,23 @@ public class GMovieDBTest {
     public void gMovieDBIsEmptyTest() {
         GMovieDB gMovieDB = new GMovieDB();
 
-        assertNull(gMovieDB.getMovies());
+        assertTrue(gMovieDB.getMovies().isEmpty());
     }
 
     @Test
     public void gMovieDBReturnsMovieTest() {
         GMovieDB gMovieDB = new GMovieDB();
-        gMovieDB.movie = "movie";
+        gMovieDB.movieList.add("movie1");
 
-        assertEquals(gMovieDB.getMovies(), "movie");
+        assertEquals(gMovieDB.getMovies().get(0), "movie1");
     }
 
     @Test
     public void gMovieDBretrunAllTest() {
         GMovieDB gMovieDB = new GMovieDB();
-        gMovieDB.movie = "movie";
+        gMovieDB.movieList.add("movie1");
+        gMovieDB.movieList.add("movie2");
+        gMovieDB.movieList.add("movie3");
 
         assertEquals(3,gMovieDB.getMovies().size());
     }

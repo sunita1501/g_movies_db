@@ -1,13 +1,16 @@
 package com.gmovies;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GMovieDB {
 
-    String movie = null;
+    List<String> movieList = new ArrayList<String>();
 
 
-    public Object getMovies() {
+    public List<String> getMovies() {
 
 
-        return movie;
+        return movieList;
     }
 }
