@@ -43,4 +43,14 @@ public class GMovieDTODBServiceTest {
         assertEquals(movieDTOList.get(0).title,  "Awesome");
     }
 
+    @Test
+    public void serviceFindByTitleFromDB() {
+        MovieEntity movieEntity = new MovieEntity("Awesome", "Joe");
+        when(repository.findByTitle("Awesome")).thenReturn(movieEntity);
+
+        MovieDTO result = service.findByMovieTitle("Awesome");
+
+        assertEquals("Joe", result.director);
+    }
+
 }

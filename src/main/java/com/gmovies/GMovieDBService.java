@@ -26,4 +26,10 @@ public class GMovieDBService {
         ).collect(Collectors.toList());
 
     }
+
+    public MovieDTO findByMovieTitle(String movieTitle) {
+        MovieEntity movieEntity = gMovieDBRepository.findByTitle(movieTitle);
+        return new MovieDTO(movieEntity.title, movieEntity.director);
+
+    }
 }
