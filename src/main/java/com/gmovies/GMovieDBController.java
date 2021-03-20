@@ -28,7 +28,14 @@ public class GMovieDBController {
     }
 
     @GetMapping("movie/{name}")
-    public MovieDTO getMovieByTitle(@PathVariable String name) {
+    public MovieDTO getMovieByTitle(@PathVariable String name)throws Exception {
+
+
+            if(gMovieDBService.findByMovieTitle(name)==null){
+                throw new MovieException("Not a valid movie name");
+            }
+
+
         return gMovieDBService.findByMovieTitle(name);
     }
 }

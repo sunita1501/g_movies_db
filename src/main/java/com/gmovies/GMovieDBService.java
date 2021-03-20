@@ -29,6 +29,9 @@ public class GMovieDBService {
 
     public MovieDTO findByMovieTitle(String movieTitle) {
         MovieEntity movieEntity = gMovieDBRepository.findByTitle(movieTitle);
+        if(movieEntity== null){
+            return null;
+        }
         return new MovieDTO(movieEntity.title, movieEntity.director,movieEntity.rating,movieEntity.actors, movieEntity.release_year,movieEntity.description);
 
     }

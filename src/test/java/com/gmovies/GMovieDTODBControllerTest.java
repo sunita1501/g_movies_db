@@ -28,7 +28,7 @@ public class GMovieDTODBControllerTest {
     }
 
     @Test
-    public void gMovieDBReturnsMovieTest() {
+    public void gMovieDBReturnsMovieTest() throws Exception{
         MovieDTO movieDTO = new MovieDTO("Awesome", "Joe");
         when(service.findByMovieTitle("Awesome")).thenReturn(movieDTO);
 

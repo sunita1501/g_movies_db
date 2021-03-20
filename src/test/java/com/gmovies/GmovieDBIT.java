@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,6 +24,7 @@ public class GmovieDBIT {
     MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
+
 
     @Test
     public void getmoviesTest()throws Exception{
@@ -54,12 +56,25 @@ public class GmovieDBIT {
     public void starRatingTest()throws Exception{
         MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe",5);
 
-        //MovieDTO movieDTO2 =new MovieDTO("Awesome2","Joe2",0);
-       // MovieDTO movieDTO3 =new MovieDTO("Awesome3","Joe3",0);
+
         mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
         //mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
       //  mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
         mockMvc.perform(get("/movie/Awesome").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
                 andExpect(jsonPath("$.rating").value(5));
+    }
+
+    @Test
+    public void friendlyMessageWithNoMovieTest()throws Exception{
+        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe",5);
+
+
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        //mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        //  mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(get("/movie/Awesome5")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(result -> assertEquals("Not a valid movie name",result.getResolvedException().getMessage()));
+
     }
 }
