@@ -2,6 +2,7 @@ package com.gmovies;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GMovieDBTest {
@@ -11,6 +12,14 @@ public class GMovieDBTest {
         GMovieDB gMovieDB = new GMovieDB();
 
         assertNull(gMovieDB.getMovies());
+    }
+
+    @Test
+    public void gMovieDBReturnsMovieTest() {
+        GMovieDB gMovieDB = new GMovieDB();
+        gMovieDB.movie = "movie";
+
+        assertEquals(gMovieDB.getMovies(), "movie");
     }
 
 }
