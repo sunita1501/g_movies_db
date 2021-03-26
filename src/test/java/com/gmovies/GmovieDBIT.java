@@ -60,7 +60,7 @@ public class GmovieDBIT {
         MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe",5);
 
 
-        mockMvc.perform(post("/movie").Content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
         //mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
         //  mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
         mockMvc.perform(get("/movie/Awesome").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
