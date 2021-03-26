@@ -55,4 +55,16 @@ public class GmovieDBIT {
                 andExpect(jsonPath("$.title").value("Awesome2"));
     }
 
+    @Test
+    public void starRatingTest()throws Exception{
+        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe",5);
+
+
+        mockMvc.perform(post("/movie").Content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        //mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        //  mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(get("/movie/Awesome").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
+                andExpect(jsonPath("$.rating").value(5));
+    }
+
 }
