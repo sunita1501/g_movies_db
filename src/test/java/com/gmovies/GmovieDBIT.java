@@ -30,51 +30,5 @@ public class GmovieDBIT {
     public void getmoviesTest()throws Exception{
         mockMvc.perform(get("/movies").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
-    @Test
-    public void addMoviesTest()throws Exception{
-        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe");
-        MovieDTO movieDTO2 =new MovieDTO("Awesome2","Joe2");
-        MovieDTO movieDTO3 =new MovieDTO("Awesome3","Joe3");
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(get("/movies").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
-                andExpect(jsonPath("[0].title").value("Awesome")).andExpect(jsonPath("length()").value(3));
-    }
-    @Test
-    public void getSpecificMovieTest()throws Exception{
-        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe");
-        MovieDTO movieDTO2 =new MovieDTO("Awesome2","Joe2");
-        MovieDTO movieDTO3 =new MovieDTO("Awesome3","Joe3");
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(get("/movie/Awesome2").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
-                andExpect(jsonPath("$.title").value("Awesome2"));
-    }
-    @Test
-    public void starRatingTest()throws Exception{
-        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe",5);
 
-
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        //mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-      //  mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(get("/movie/Awesome").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
-                andExpect(jsonPath("$.rating").value(5));
-    }
-
-    @Test
-    public void friendlyMessageWithNoMovieTest()throws Exception{
-        MovieDTO movieDTO1 =new MovieDTO("Awesome","Joe",5);
-
-
-        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        //mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        //  mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-        mockMvc.perform(get("/movie/Awesome5")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(result -> assertEquals("Not a valid movie name",result.getResolvedException().getMessage()));
-
-    }
 }
