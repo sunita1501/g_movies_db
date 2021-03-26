@@ -67,4 +67,19 @@ public class GmovieDBIT {
                 andExpect(jsonPath("$.rating").value(5));
     }
 
+    @Test
+    public void friendlyMessageWithNoMovieTest()throws Exception{
+        MovieDTO movieDTO1 =new movieDTO("Awesome","Joe",5);
+
+
+        mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO1)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        //mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO2)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        //  mockMvc.perform(post("/movie").content(objectMapper.writeValueAsString(movieDTO3)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+        mockMvc.perform(get("/movie/Awesome5")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(result -> assertEquals("Not a valid movie name",result.getResolvedException().getMessage()));
+
+    }
+
+
 }
